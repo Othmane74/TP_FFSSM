@@ -4,20 +4,23 @@
 package FFSSM;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Plongee {
+	ArrayList<Licence> palanquee;
 
-	public Site lieu;
+	private Site lieu;
 
-	public Moniteur chefDePalanquee;
+	private Moniteur chefDePalanquee;
 
-	public LocalDate date;
+	private LocalDate date;
 
-	public int profondeur;
+	private int profondeur;
 
-	public int duree;
+	private int duree;
+
 
 	public Plongee(Site lieu, Moniteur chefDePalanquee, LocalDate date, int profondeur, int duree) {
 		this.lieu = lieu;
@@ -25,11 +28,11 @@ public class Plongee {
 		this.date = date;
 		this.profondeur = profondeur;
 		this.duree = duree;
+		palanquee= new ArrayList<Licence>();
 	}
 
 	public void ajouteParticipant(Plongeur participant) {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+		palanquee.add(participant.derniereLicence());
 	}
 
 	public LocalDate getDate() {
@@ -43,8 +46,34 @@ public class Plongee {
 	 * @return vrai si la plongée est conforme
 	 */
 	public boolean estConforme() {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+		boolean res= true;
+		LocalDate now= LocalDate.now();
+	for(Licence list: palanquee){
+		if(!list.estValide(now)){
+			res=false;
+			break;
+		}
+	}
+	return res;
 	}
 
+	public ArrayList<Licence> getPalanquee() {
+		return palanquee;
+	}
+
+	public Site getLieu() {
+		return lieu;
+	}
+
+	public Moniteur getChefDePalanquee() {
+		return chefDePalanquee;
+	}
+
+	public int getProfondeur() {
+		return profondeur;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
 }
