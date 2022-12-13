@@ -45,6 +45,15 @@ public class FFSSMUnitTest {
         assertTrue(licence.estValide(aDate));
         assertFalse(licence.estValide(anotherDate));
     }
-
-
+    @Test
+    public void testPlongeeConforme(){
+        Plongeur plongeur2 = new Plongeur("KJ-1004", "Dupond", "Aurelien", "7 8 Rue firmin oules", "0877887763", LocalDate.of(2021, 10, 12), 10);
+        Plongeur plongeur3 = new Plongeur("LK-0202", "Donald", "Marc", "Rue firmin oules", "0612587963", LocalDate.of(2020, 10, 5), 5);
+        Plongee plonge = new Plongee(null, moniteur, LocalDate.of(2022, 5, 10), 7, 25);
+        plongeur2.ajouteLicence("9888958", LocalDate.of(2021, 6, 10), club);
+        plongeur3.ajouteLicence("1889984", LocalDate.of(2020, 5, 23), club);
+        plonge.ajouteParticipant(plongeur2);
+        plonge.ajouteParticipant(plongeur3);
+        assertFalse(plonge.estConforme());
+}
 }
